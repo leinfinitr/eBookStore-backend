@@ -25,4 +25,14 @@ public class BookDaoImpl implements BookDao {
         return bookRepository.findAll();
     }
 
+    @Override
+    public void save(Book book) {
+        bookRepository.save(book);
+    }
+
+    @Override
+    public void deleteBookById(Integer id) {
+        bookRepository.deleteById(id);
+    }
+
 }

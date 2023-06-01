@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class OrderController {
     @Autowired
     OrderService orderService;
@@ -21,10 +21,24 @@ public class OrderController {
         return orderService.findOrderlistsByUserName(name);
     }
 
-    // 通过订单号获取订单项
+    @GetMapping("/getOrders")
+    public List<Orderlist> getOrders() {
+        return orderService.findOrderlists();
+    }
+
+    @GetMapping("/getOrderItemsByUserName")
+    public List<Orderitem> getOrderItemsByUserName(@RequestParam(value = "name") String name) {
+        return orderService.findOrderitemsByUserName(name);
+    }
+
     @GetMapping("/getOrderItemsByOrderId")
     public List<Orderitem> getOrderItems(@RequestParam(value = "orderId") Integer orderId) {
         return orderService.findOrderitemsByOrderId(orderId);
+    }
+
+    @GetMapping("/getOrderItems")
+    public List<Orderitem> getOrderItems() {
+        return orderService.findOrderitems();
     }
 
     // 接收前端发送过来的订单信息，并返回购买成功
@@ -35,22 +49,19 @@ public class OrderController {
     @PostMapping("/buy")
     public Map<String, Object> buy(@RequestBody Map<String, Object> order) {
         String userName = (String) order.get("userName");
-        Double totalPrice = (Double) order.get("totalPrice");
+        Double totalPrice = null;
+        Object payObj = order.get("totalPrice");
+        if (payObj instanceof Integer) {
+            totalPrice = ((Integer) payObj).doubleValue();
+        } else if (payObj instanceof Double) {
+            totalPrice = (Double) payObj;
+        }
         Integer orderlistId = orderService.addOrderlistByUnamePrice(userName, totalPrice);
 
         // 创建新的订单项
         List<Map<String, Object>> orderlistItems = (List<Map<String, Object>>) order.get("orderlist");
         for (Map<String, Object> orderlistItem : orderlistItems) {
-            Integer bookId = (Integer) orderlistItem.get("bookId");
-            Integer bookNum = (Integer) orderlistItem.get("bookNum");
-            Double pay = null;
-            Object payObj = orderlistItem.get("pay");
-            if (payObj instanceof Integer) {
-                pay = ((Integer) payObj).doubleValue();
-            } else if (payObj instanceof Double) {
-                pay = (Double) payObj;
-            }
-            orderService.addOrderitemByOidBidBnumPay(orderlistId, bookId, bookNum, pay);
+            orderService.addOrderitem(orderlistItem, orderlistId);
         }
 
         // 返回购买成功

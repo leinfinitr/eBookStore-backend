@@ -13,4 +13,10 @@ public interface OrderDao {
     Orderlist save(Orderlist orderlist);
 
     Orderitem save(Orderitem orderitem);
+
+    void deleteOrderlistByOrderId(Integer orderlistId);
+
+    List<Orderlist> findOrderlists();
+
+    List<Orderitem> findOrderitems();
 }

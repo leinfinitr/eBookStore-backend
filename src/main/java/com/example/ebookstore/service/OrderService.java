@@ -4,6 +4,7 @@ import com.example.ebookstore.entity.Orderitem;
 import com.example.ebookstore.entity.Orderlist;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
     List<Orderlist> findOrderlistsByUserName(String userName);
@@ -12,5 +13,13 @@ public interface OrderService {
 
     Integer addOrderlistByUnamePrice(String userName, Double price);
 
-    void addOrderitemByOidBidBnumPay(Integer orderId, Integer bookId, Integer bookNum, Double pay);
+    void addOrderitem(Map<String, Object> map, Integer orderId);
+
+    void deleteOrderlistByOrderId(Integer orderlistId);
+
+    List<Orderitem> findOrderitemsByUserName(String name);
+
+    List<Orderlist> findOrderlists();
+
+    List<Orderitem> findOrderitems();
 }

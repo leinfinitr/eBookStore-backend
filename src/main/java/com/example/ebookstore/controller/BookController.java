@@ -3,16 +3,14 @@ package com.example.ebookstore.controller;
 import com.example.ebookstore.entity.Book;
 import com.example.ebookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class BookController {
     @Autowired
     private BookService bookService;
@@ -27,5 +25,21 @@ public class BookController {
     @GetMapping("/books")
     public List<Book> getAllBooks() {
         return bookService.findAll();
+    }
+
+    @PostMapping("/addBook")
+    public Map<String, Object> addBook(@RequestBody Map<String, String> params) {
+        return bookService.addBook(params);
+    }
+
+    @PostMapping("/updateBook")
+    public Map<String, Object> updateBook(@RequestBody Map<String, String> params) {
+        return bookService.updateBook(params);
+    }
+
+    @PostMapping("/deleteBook")
+    public Map<String, Object> deleteBook(@RequestBody Map<String, String> params) {
+        Integer id = Integer.parseInt(params.get("id"));
+        return bookService.deleteBookById(id);
     }
 }

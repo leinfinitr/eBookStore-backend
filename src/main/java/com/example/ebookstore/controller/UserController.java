@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     UserService userService;
@@ -41,10 +41,21 @@ public class UserController {
     @RequestMapping("/modifyUserStatus")
     public Map<String, Object> modifyUserStatus(@RequestParam(value = "id") String id,
                                                 @RequestParam(value = "status") String status) {
-        // System.out.println("id: " + id + " status: " + status);
         userService.modifyUserStatus(Integer.parseInt(id), status);
         Map<String, Object> result = new HashMap<>();
         result.put("status", 200);
+        return result;
+    }
+
+    @PostMapping("/register")
+    public Map<String, Object> register(@RequestBody Map<String, String> params) {
+        Map<String, Object> result = userService.register(params);
+        if (result.get("status").equals(200)) {
+            Map<String, Object> userauth = new HashMap<>();
+            userauth.put("userid", result.get("userid"));
+            userauth.put("password", params.get("password"));
+            userService.saveUserauth(userauth);
+        }
         return result;
     }
 }

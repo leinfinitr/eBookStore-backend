@@ -16,20 +16,26 @@ public class Orderitem {
     @Column(name = "order_id")
     private int orderId;
     @Basic
-    @Column(name = "book_id")
-    private int bookId;
+    @Column(name = "name")
+    private String name;
     @Basic
-    @Column(name = "book_num")
-    private int bookNum;
+    @Column(name = "price")
+    private BigDecimal price;
+    @Basic
+    @Column(name = "image")
+    private String image;
+    @Basic
+    @Column(name = "num")
+    private int num;
     @Basic
     @Column(name = "pay")
     private BigDecimal pay;
     @Basic
-    @Column(name = "order_time")
-    private Timestamp orderTime;
+    @Column(name = "time")
+    private Timestamp time;
     @Basic
-    @Column(name = "order_status")
-    private Object orderStatus;
+    @Column(name = "status")
+    private Object status;
 
     public int getId() {
         return id;
@@ -47,20 +53,36 @@ public class Orderitem {
         this.orderId = orderId;
     }
 
-    public int getBookId() {
-        return bookId;
+    public String getName() {
+        return name;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getBookNum() {
-        return bookNum;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setBookNum(int bookNum) {
-        this.bookNum = bookNum;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public BigDecimal getPay() {
@@ -71,20 +93,20 @@ public class Orderitem {
         this.pay = pay;
     }
 
-    public Timestamp getOrderTime() {
-        return orderTime;
+    public Timestamp getTime() {
+        return time;
     }
 
-    public void setOrderTime(Timestamp orderTime) {
-        this.orderTime = orderTime;
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
-    public Object getOrderStatus() {
-        return orderStatus;
+    public Object getStatus() {
+        return status;
     }
 
-    public void setOrderStatus(Object orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStatus(Object status) {
+        this.status = status;
     }
 
     @Override
@@ -96,22 +118,26 @@ public class Orderitem {
 
         if (id != orderitem.id) return false;
         if (orderId != orderitem.orderId) return false;
-        if (bookId != orderitem.bookId) return false;
-        if (bookNum != orderitem.bookNum) return false;
+        if (num != orderitem.num) return false;
+        if (!Objects.equals(name, orderitem.name)) return false;
+        if (!Objects.equals(price, orderitem.price)) return false;
+        if (!Objects.equals(image, orderitem.image)) return false;
         if (!Objects.equals(pay, orderitem.pay)) return false;
-        if (!Objects.equals(orderTime, orderitem.orderTime)) return false;
-        return Objects.equals(orderStatus, orderitem.orderStatus);
+        if (!Objects.equals(time, orderitem.time)) return false;
+        return Objects.equals(status, orderitem.status);
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + orderId;
-        result = 31 * result + bookId;
-        result = 31 * result + bookNum;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
+        result = 31 * result + num;
         result = 31 * result + (pay != null ? pay.hashCode() : 0);
-        result = 31 * result + (orderTime != null ? orderTime.hashCode() : 0);
-        result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 }

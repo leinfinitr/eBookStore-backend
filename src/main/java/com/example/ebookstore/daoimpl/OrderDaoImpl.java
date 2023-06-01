@@ -23,6 +23,16 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Orderlist> findOrderlists() {
+        return orderlistRepository.findAll();
+    }
+
+    @Override
+    public List<Orderitem> findOrderitems() {
+        return orderitemRepository.findAll();
+    }
+
+    @Override
     public List<Orderitem> findOrderitemsByOrderId(Integer orderId) {
         return orderitemRepository.findOrderitemsByOrderId(orderId);
     }
@@ -35,5 +45,10 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Orderitem save(Orderitem orderitem) {
         return orderitemRepository.save(orderitem);
+    }
+
+    @Override
+    public void deleteOrderlistByOrderId(Integer orderlistId) {
+        orderlistRepository.deleteById(orderlistId);
     }
 }

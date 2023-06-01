@@ -3,6 +3,7 @@ package com.example.ebookstore.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +30,9 @@ public class Orderlist {
     @Basic
     @Column(name = "total_price")
     private BigDecimal totalPrice;
+    @Basic
+    @Column(name = "time")
+    private Timestamp time;
 
     public int getOrderId() {
         return orderId;
@@ -86,6 +90,14 @@ public class Orderlist {
         this.totalPrice = totalPrice;
     }
 
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,7 +111,8 @@ public class Orderlist {
         if (!Objects.equals(nation, orderlist.nation)) return false;
         if (!Objects.equals(province, orderlist.province)) return false;
         if (!Objects.equals(address, orderlist.address)) return false;
-        return Objects.equals(totalPrice, orderlist.totalPrice);
+        if (!Objects.equals(totalPrice, orderlist.totalPrice)) return false;
+        return Objects.equals(time, orderlist.time);
     }
 
     @Override
@@ -111,6 +124,7 @@ public class Orderlist {
         result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
+        result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }
 }

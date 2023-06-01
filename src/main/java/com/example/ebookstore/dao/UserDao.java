@@ -1,6 +1,7 @@
 package com.example.ebookstore.dao;
 
 import com.example.ebookstore.entity.User;
+import com.example.ebookstore.entity.Userauth;
 
 import java.util.List;
 
@@ -9,7 +10,9 @@ public interface UserDao {
 
     User findByUserName(String userName);
 
-    User save(User user);
+    void save(User user);
 
     List<User> findAll();
+
+    void saveUserAuth(Userauth userauth);
 }
