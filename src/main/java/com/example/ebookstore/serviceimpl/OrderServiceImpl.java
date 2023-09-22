@@ -66,20 +66,10 @@ public class OrderServiceImpl implements OrderService {
         Orderitem orderitem = new Orderitem();
         orderitem.setOrderId(orderId);
         orderitem.setName((String) map.get("bookName"));
-        Object priceObj = map.get("bookPrice");
-        if (priceObj instanceof Integer) {
-            orderitem.setPrice(BigDecimal.valueOf(((Integer) priceObj).doubleValue()));
-        } else if (priceObj instanceof Double) {
-            orderitem.setPrice(BigDecimal.valueOf((Double) priceObj));
-        }
+        orderitem.setPrice(new BigDecimal((String) map.get("bookPrice")));
         orderitem.setImage((String) map.get("bookImage"));
-        orderitem.setNum((Integer) map.get("bookNum"));
-        Object payObj = map.get("pay");
-        if (payObj instanceof Integer) {
-            orderitem.setPay(BigDecimal.valueOf(((Integer) payObj).doubleValue()));
-        } else if (payObj instanceof Double) {
-            orderitem.setPay(BigDecimal.valueOf((Double) payObj));
-        }
+        orderitem.setNum(Integer.parseInt((String) map.get("bookNum")));
+        orderitem.setPay(new BigDecimal((String) map.get("pay")));
 
         // 将 orderTime 设置为当前时间
         orderitem.setTime(new Timestamp(System.currentTimeMillis()));
@@ -87,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         orderDao.save(orderitem);
 
         // 更新 book 表中的库存
-        Integer bookId = (Integer) map.get("bookId");
+        Integer bookId = Integer.parseInt((String) map.get("bookId"));
         Book book = bookDao.findBookById(bookId).get();
         book.setInventory(book.getInventory() - orderitem.getNum());
         bookDao.save(book);

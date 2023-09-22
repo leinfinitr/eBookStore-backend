@@ -4,6 +4,7 @@ import com.example.ebookstore.entity.Orderitem;
 import com.example.ebookstore.entity.Orderlist;
 import com.example.ebookstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     OrderService orderService;
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping("/getOrdersByUserName")
     public List<Orderlist> getOrders(@RequestParam(value = "name") String name) {
@@ -59,9 +62,11 @@ public class OrderController {
         Integer orderlistId = orderService.addOrderlistByUnamePrice(userName, totalPrice);
 
         // 创建新的订单项
+        System.out.println("接收到下订单请求");
         List<Map<String, Object>> orderlistItems = (List<Map<String, Object>>) order.get("orderlist");
         for (Map<String, Object> orderlistItem : orderlistItems) {
-            orderService.addOrderitem(orderlistItem, orderlistId);
+            kafkaTemplate.send("order", String.valueOf(orderlistId), orderlistItem.toString());
+            // orderService.addOrderitem(mapStringToMap(orderlistItem.toString()), orderlistId);
         }
 
         // 返回购买成功
