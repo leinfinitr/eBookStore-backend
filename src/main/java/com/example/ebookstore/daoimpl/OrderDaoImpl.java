@@ -1,10 +1,9 @@
 package com.example.ebookstore.daoimpl;
 
 import com.example.ebookstore.dao.OrderDao;
-import com.example.ebookstore.entity.Orderitem;
 import com.example.ebookstore.entity.Orderlist;
-import com.example.ebookstore.repository.OrderitemRepository;
 import com.example.ebookstore.repository.OrderlistRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +11,7 @@ import java.util.List;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
-    @Autowired
-    private OrderitemRepository orderitemRepository;
+
     @Autowired
     private OrderlistRepository orderlistRepository;
 
@@ -28,27 +26,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Orderitem> findOrderitems() {
-        return orderitemRepository.findAll();
-    }
-
-    @Override
-    public List<Orderitem> findOrderitemsByOrderId(Integer orderId) {
-        return orderitemRepository.findOrderitemsByOrderId(orderId);
-    }
-
-    @Override
-    public Orderlist save(Orderlist orderlist) {
+    @Transactional
+    public Orderlist saveOrderlist(Orderlist orderlist) {
         return orderlistRepository.save(orderlist);
     }
 
-    @Override
-    public Orderitem save(Orderitem orderitem) {
-        return orderitemRepository.save(orderitem);
-    }
-
-    @Override
-    public void deleteOrderlistByOrderId(Integer orderlistId) {
-        orderlistRepository.deleteById(orderlistId);
-    }
 }

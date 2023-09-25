@@ -50,24 +50,9 @@ public class OrderController {
     // totalPrice: BigDecimal,
     // orderlist: [orderitem, orderitem, ...]
     @PostMapping("/buy")
-    public Map<String, Object> buy(@RequestBody Map<String, Object> order) {
-        String userName = (String) order.get("userName");
-        Double totalPrice = null;
-        Object payObj = order.get("totalPrice");
-        if (payObj instanceof Integer) {
-            totalPrice = ((Integer) payObj).doubleValue();
-        } else if (payObj instanceof Double) {
-            totalPrice = (Double) payObj;
-        }
-        Integer orderlistId = orderService.addOrderlistByUnamePrice(userName, totalPrice);
-
+    public Map<String, Object> buy(@RequestBody String order) {
         // 创建新的订单项
-        System.out.println("接收到下订单请求");
-        List<Map<String, Object>> orderlistItems = (List<Map<String, Object>>) order.get("orderlist");
-        for (Map<String, Object> orderlistItem : orderlistItems) {
-            kafkaTemplate.send("order", String.valueOf(orderlistId), orderlistItem.toString());
-            // orderService.addOrderitem(mapStringToMap(orderlistItem.toString()), orderlistId);
-        }
+        kafkaTemplate.send("order", order);
 
         // 返回购买成功
         Map<String, Object> result = new HashMap<>();

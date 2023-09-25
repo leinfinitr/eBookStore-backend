@@ -11,11 +11,11 @@ public interface OrderService {
 
     List<Orderitem> findOrderitemsByOrderId(Integer orderId);
 
+    Map<String, Object> addOrder(String order);
+
     Integer addOrderlistByUnamePrice(String userName, Double price);
 
     void addOrderitem(Map<String, Object> map, Integer orderId);
-
-    void deleteOrderlistByOrderId(Integer orderlistId);
 
     List<Orderitem> findOrderitemsByUserName(String name);
 
