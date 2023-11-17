@@ -1,11 +1,12 @@
 package com.example.ebookstore.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
+@Document(collection = "book")
 public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

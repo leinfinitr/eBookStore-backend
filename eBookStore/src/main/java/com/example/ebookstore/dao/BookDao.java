@@ -13,4 +13,10 @@ public interface BookDao {
     void save(Book book);
 
     void deleteBookById(Integer id);
+
+    List<String> findSimilarLabelByName(String label);
+
+    List<Book> findBookByLabel(List<String> labels);
+
+    void initLabelMap();
 }

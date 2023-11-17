@@ -17,6 +17,8 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookDao bookDao;
 
+    private Boolean isLableMapInit = false;
+
     @Override
     public Optional<Book> findBookById(Integer id) {
         return bookDao.findBookById(id);
@@ -84,5 +86,17 @@ public class BookServiceImpl implements BookService {
     public Map<String, Object> deleteBookById(Integer id) {
         bookDao.deleteBookById(id);
         return Map.of("status", 200);
+    }
+
+    @Override
+    public List<Book> searchBookByLabel(String label) {
+        // 查询与该标签相近的所有标签
+        if (!isLableMapInit) {
+            bookDao.initLabelMap();
+            isLableMapInit = true;
+        }
+        List<String> labels = bookDao.findSimilarLabelByName(label);
+        // 查询与这些标签相近的所有书籍
+        return bookDao.findBookByLabel(labels);
     }
 }

@@ -42,4 +42,10 @@ public class BookController {
         Integer id = Integer.parseInt(params.get("id"));
         return bookService.deleteBookById(id);
     }
+
+    // 通过书的标签搜索与该书标签相似的书籍
+    @GetMapping("/searchBookByLabel")
+    public List<Book> searchBookByLabel(@RequestParam(value = "name") String name) {
+        return bookService.searchBookByLabel(name);
+    }
 }

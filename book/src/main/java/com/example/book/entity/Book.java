@@ -1,11 +1,14 @@
 package com.example.book.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
+// @Entity is used to map a class to a relational database, it represents a database table.
+// @Document is used to map a class to noSQL database (specifically mongoDB), it represents a MongoDB documents.
+@Document(collection = "book")
 public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -95,10 +95,10 @@ public class OrderServiceImpl implements OrderService {
         Orderitem orderitem = new Orderitem();
         orderitem.setOrderId(orderId);
         orderitem.setName((String) map.get("bookName"));
-        orderitem.setPrice((BigDecimal) map.get("bookPrice"));
+        orderitem.setPrice(BigDecimal.valueOf(Double.parseDouble(String.valueOf(map.get("bookPrice")))));
         orderitem.setImage((String) map.get("bookImage"));
         orderitem.setNum((Integer) map.get("bookNum"));
-        orderitem.setPay((BigDecimal) map.get("pay"));
+        orderitem.setPay(BigDecimal.valueOf(Double.parseDouble(String.valueOf(map.get("pay")))));
 
         // 将 orderTime 设置为当前时间
         orderitem.setTime(new Timestamp(System.currentTimeMillis()));

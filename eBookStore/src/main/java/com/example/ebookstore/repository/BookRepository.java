@@ -1,8 +1,10 @@
 package com.example.ebookstore.repository;
 
 import com.example.ebookstore.entity.Book;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface BookRepository extends JpaRepository<Book, Integer> {
-    Book findById(int id);
+import java.util.List;
+
+public interface BookRepository extends MongoRepository<Book, Integer> {
+    List<Book> findBooksByType(String label);
 }

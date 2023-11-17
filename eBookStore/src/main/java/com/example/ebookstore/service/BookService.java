@@ -16,4 +16,6 @@ public interface BookService {
     Map<String, Object> updateBook(Map<String, String> params);
 
     Map<String, Object> deleteBookById(Integer id);
+
+    List<Book> searchBookByLabel(String label);
 }
