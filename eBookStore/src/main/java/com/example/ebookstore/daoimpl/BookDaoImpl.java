@@ -151,4 +151,8 @@ public class BookDaoImpl implements BookDao {
         labelmapRepository.save(suspense);
     }
 
+    @Override
+    public Book findBookByName(String name) {
+        return bookRepository.findBookByName(name);
+    }
 }

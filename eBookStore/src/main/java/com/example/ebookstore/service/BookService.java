@@ -18,4 +18,6 @@ public interface BookService {
     Map<String, Object> deleteBookById(Integer id);
 
     List<Book> searchBookByLabel(String label);
+
+    Book findBookByName(String name);
 }

@@ -19,4 +19,6 @@ public interface BookDao {
     List<Book> findBookByLabel(List<String> labels);
 
     void initLabelMap();
+
+    Book findBookByName(String name);
 }

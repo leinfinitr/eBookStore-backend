@@ -1,0 +1,15 @@
+type Query {
+    bookByName(name: String): Book
+}
+
+type Book {
+    id: ID
+    isbn: String
+    name: String
+    type: String
+    author: String
+    price: Float
+    description: String
+    inventory: Int
+    image: String
+}

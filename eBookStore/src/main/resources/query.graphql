@@ -1,0 +1,13 @@
+query bookDetails {
+    bookByName(name: "小王子") {
+        id
+        isbn
+        name
+        type
+        author
+        price
+        description
+        inventory
+        image
+    }
+}

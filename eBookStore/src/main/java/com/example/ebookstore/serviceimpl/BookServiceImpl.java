@@ -99,4 +99,9 @@ public class BookServiceImpl implements BookService {
         // 查询与这些标签相近的所有书籍
         return bookDao.findBookByLabel(labels);
     }
+
+    @Override
+    public Book findBookByName(String name) {
+        return bookDao.findBookByName(name);
+    }
 }
