@@ -1,0 +1,33 @@
+#volumes:
+#  mysql:
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    # docker-entrypoint-initdb.d 是docker官方mysql镜像中的一个目录，用于初始化数据库。
+    # 在该目录下，可以放置一些sql脚本文件，mysql会在容器启动时自动执行这些脚本文件。
+    volumes:
+      - ./bookstore.sql:/docker-entrypoint-initdb.d/bookstore.sql
+    #    volumes:
+    #      - ./bookstore.sql:/var/lib/mysql
+    #    volumes:
+    #      - mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment: #mysql的一些参数配置
+      MYSQL_DATABASE: bookstore #数据库名称
+      MYSQL_ROOT_PASSWORD: ljl0705yan@        #root的密码
+    restart: always    #Docker容器重启时，当前容器也会自动重启。
+
+  app:
+    container_name: backend
+    build:
+      context: . #构建镜像
+      dockerfile: Dockerfile
+    ports: #映射端口
+      - "8080:8080"
+    depends_on: # 代表项目启动依赖 mysql 这个容器，会先启动 mysql 这个容器
+      - mysql
+    links: # 连接 mysql 容器
+      - mysql
