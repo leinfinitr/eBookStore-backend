@@ -18,7 +18,6 @@ services:
     environment: #mysql的一些参数配置
       MYSQL_DATABASE: bookstore #数据库名称
       MYSQL_ROOT_PASSWORD: ljl0705yan@        #root的密码
-    restart: always    #Docker容器重启时，当前容器也会自动重启。
 
   app:
     container_name: backend
