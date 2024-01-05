@@ -20,4 +20,6 @@ public interface BookService {
     List<Book> searchBookByLabel(String label);
 
     Book findBookByName(String name);
+
+    Integer wordCount(String keyword);
 }

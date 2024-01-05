@@ -48,4 +48,10 @@ public class BookController {
     public List<Book> searchBookByLabel(@RequestParam(value = "name") String name) {
         return bookService.searchBookByLabel(name);
     }
+
+    // 运行 spark-submit 命令统计某个关键词出现次数
+    @GetMapping("/wordCount")
+    public Integer wordCount(@RequestParam(value = "keyword") String keyword) {
+        return bookService.wordCount(keyword);
+    }
 }
