@@ -8,6 +8,7 @@ import com.example.ebookstore.entity.Orderitem;
 import com.example.ebookstore.entity.Orderlist;
 import com.example.ebookstore.entity.User;
 import com.example.ebookstore.service.OrderService;
+import com.example.ebookstore.serviceimpl.PriceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -110,6 +111,9 @@ public class OrderServiceImpl implements OrderService {
                 res.addAll(orderitems);
             }
         }
+        PriceServiceImpl priceService = new PriceServiceImpl();
+        double ret_price = priceService.ifContinuedInvestment(new double[]{1.0, 2.0, 3.0}, new double[]{0.5, 1.0, 1.5}, new int[]{1, 2, 3}, 10.0);
+        System.out.println("ret total price: " + ret_price);
         return res;
     }
 }
