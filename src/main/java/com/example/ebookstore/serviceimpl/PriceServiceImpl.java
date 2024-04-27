@@ -54,6 +54,8 @@ public class PriceServiceImpl {
                 System.out.println("Investor " + i + " confidence: " + investorConfidence[i]);
                 if(investorConfidence[i] > 0.3) {
                     System.out.println("Investor " + i + " confidence is greater than 0.3, very good!");
+                } else {
+                    System.out.println("Investor " + i + " confidence is less than 0.3, need to increase");
                 }
             }
         } else {
@@ -70,6 +72,8 @@ public class PriceServiceImpl {
                 System.out.println("Investor " + i + " confidence: " + investorConfidence[i]);
                 if(investorConfidence[i] < 0.1) {
                     System.out.println("Investor " + i + " confidence is less than 0.1, need to increase");
+                } else {
+                    System.out.println("Investor " + i + " confidence is greater than 0.1, very good!");
                 }
             }
         }
