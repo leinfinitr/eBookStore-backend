@@ -78,6 +78,13 @@ class UserTest {
     }
 
     @Test
+    void equalsReturnsTrueForOneUser() {
+        User user = new User();
+        user.setUserId(1);
+        assertEquals(user, user);
+    }
+
+    @Test
     void equalsReturnsTrueForSameUser() {
         User user1 = new User();
         user1.setUserId(1);
@@ -106,8 +113,23 @@ class UserTest {
         assertEquals(user1, user2);
     }
 
+
     @Test
-    void equalsReturnsFalseForDifferentUsers() {
+    void equalsReturnsFalseForNull() {
+        User user = new User();
+        user.setUserId(1);
+        assertNotEquals(user, null);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentObject() {
+        User user = new User();
+        user.setUserId(1);
+        assertNotEquals(user, new Object());
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentUserId() {
         User user1 = new User();
         user1.setUserId(1);
         user1.setNickname("Test Nickname");
@@ -132,6 +154,105 @@ class UserTest {
         user2.setType("Different Test Type");
         user2.setStatus("Different Test Status");
 
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentNickname() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setNickname("Test Nickname");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setNickname("Different Test Nickname");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentName() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setName("Test Name");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setName("Different Test Name");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentPhone() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setPhone("1234567890");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setPhone("0987654321");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentEmail() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setEmail("test email");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setEmail("different email");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentNation() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setNation("Test Nation");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setNation("Different Test Nation");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentProvince() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setProvince("Test Province");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setProvince("Different Test Province");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentAddress() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setAddress("Test Address");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setAddress("Different Test Address");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentType() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setType("Test Type");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setType("Different Test Type");
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentStatus() {
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setStatus("Test Status");
+        User user2 = new User();
+        user2.setUserId(1);
+        user2.setStatus("Different Test Status");
         assertNotEquals(user1, user2);
     }
 
@@ -168,27 +289,9 @@ class UserTest {
     void hashCodeReturnsDifferentHashCodeForDifferentUsers() {
         User user1 = new User();
         user1.setUserId(1);
-        user1.setNickname("Test Nickname");
-        user1.setName("Test Name");
-        user1.setPhone("1234567890");
-        user1.setEmail("test@example.com");
-        user1.setNation("Test Nation");
-        user1.setProvince("Test Province");
-        user1.setAddress("Test Address");
-        user1.setType("Test Type");
-        user1.setStatus("Test Status");
 
         User user2 = new User();
         user2.setUserId(2);
-        user2.setNickname("Different Test Nickname");
-        user2.setName("Different Test Name");
-        user2.setPhone("0987654321");
-        user2.setEmail("different@example.com");
-        user2.setNation("Different Test Nation");
-        user2.setProvince("Different Test Province");
-        user2.setAddress("Different Test Address");
-        user2.setType("Different Test Type");
-        user2.setStatus("Different Test Status");
 
         assertNotEquals(user1.hashCode(), user2.hashCode());
     }

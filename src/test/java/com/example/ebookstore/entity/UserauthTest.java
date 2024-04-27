@@ -29,6 +29,16 @@ class UserauthTest {
     }
 
     @Test
+    void equalsReturnsTrueForOneUserauth() {
+        Userauth userauth = new Userauth();
+        userauth.setId(1);
+        userauth.setUserId(2);
+        userauth.setPassword("Test Password");
+
+        assertEquals(userauth, userauth);
+    }
+
+    @Test
     void equalsReturnsTrueForSameUserauth() {
         Userauth userauth1 = new Userauth();
         userauth1.setId(1);
@@ -44,7 +54,27 @@ class UserauthTest {
     }
 
     @Test
-    void equalsReturnsFalseForDifferentUserauths() {
+    void equalsReturnsFalseForNull() {
+        Userauth userauth = new Userauth();
+        userauth.setId(1);
+        userauth.setUserId(2);
+        userauth.setPassword("Test Password");
+
+        assertNotEquals(userauth, null);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentObject() {
+        Userauth userauth = new Userauth();
+        userauth.setId(1);
+        userauth.setUserId(2);
+        userauth.setPassword("Test Password");
+
+        assertNotEquals(userauth, new Object());
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentId() {
         Userauth userauth1 = new Userauth();
         userauth1.setId(1);
         userauth1.setUserId(2);
@@ -54,6 +84,21 @@ class UserauthTest {
         userauth2.setId(3);
         userauth2.setUserId(4);
         userauth2.setPassword("Different Test Password");
+
+        assertNotEquals(userauth1, userauth2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentUserId() {
+        Userauth userauth1 = new Userauth();
+        userauth1.setId(1);
+        userauth1.setUserId(2);
+        userauth1.setPassword("Test Password");
+
+        Userauth userauth2 = new Userauth();
+        userauth2.setId(1);
+        userauth2.setUserId(3);
+        userauth2.setPassword("Test Password");
 
         assertNotEquals(userauth1, userauth2);
     }
@@ -78,12 +123,10 @@ class UserauthTest {
         Userauth userauth1 = new Userauth();
         userauth1.setId(1);
         userauth1.setUserId(2);
-        userauth1.setPassword("Test Password");
 
         Userauth userauth2 = new Userauth();
         userauth2.setId(3);
         userauth2.setUserId(4);
-        userauth2.setPassword("Different Test Password");
 
         assertNotEquals(userauth1.hashCode(), userauth2.hashCode());
     }

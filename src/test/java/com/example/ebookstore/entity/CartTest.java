@@ -36,6 +36,17 @@ class CartTest {
     }
 
     @Test
+    void equalsReturnsTrueForOneCart() {
+        Cart cart1 = new Cart();
+        cart1.setId(1);
+        cart1.setUserId(2);
+        cart1.setBookId(3);
+        cart1.setBookNum(4);
+
+        assertEquals(cart1, cart1);
+    }
+
+    @Test
     void equalsReturnsTrueForSameCart() {
         Cart cart1 = new Cart();
         cart1.setId(1);
@@ -53,7 +64,29 @@ class CartTest {
     }
 
     @Test
-    void equalsReturnsFalseForDifferentCarts() {
+    void equalsReturnsFalseForNull() {
+        Cart cart1 = new Cart();
+        cart1.setId(1);
+        cart1.setUserId(2);
+        cart1.setBookId(3);
+        cart1.setBookNum(4);
+
+        assertNotEquals(cart1, null);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentObject() {
+        Cart cart1 = new Cart();
+        cart1.setId(1);
+        cart1.setUserId(2);
+        cart1.setBookId(3);
+        cart1.setBookNum(4);
+
+        assertNotEquals(cart1, new Object());
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentId() {
         Cart cart1 = new Cart();
         cart1.setId(1);
         cart1.setUserId(2);
@@ -64,6 +97,57 @@ class CartTest {
         cart2.setId(5);
         cart2.setUserId(6);
         cart2.setBookId(7);
+        cart2.setBookNum(8);
+
+        assertNotEquals(cart1, cart2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentUserId() {
+        Cart cart1 = new Cart();
+        cart1.setId(1);
+        cart1.setUserId(2);
+        cart1.setBookId(3);
+        cart1.setBookNum(4);
+
+        Cart cart2 = new Cart();
+        cart2.setId(1);
+        cart2.setUserId(6);
+        cart2.setBookId(3);
+        cart2.setBookNum(4);
+
+        assertNotEquals(cart1, cart2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentBookId() {
+        Cart cart1 = new Cart();
+        cart1.setId(1);
+        cart1.setUserId(2);
+        cart1.setBookId(3);
+        cart1.setBookNum(4);
+
+        Cart cart2 = new Cart();
+        cart2.setId(1);
+        cart2.setUserId(2);
+        cart2.setBookId(7);
+        cart2.setBookNum(4);
+
+        assertNotEquals(cart1, cart2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentBookNum() {
+        Cart cart1 = new Cart();
+        cart1.setId(1);
+        cart1.setUserId(2);
+        cart1.setBookId(3);
+        cart1.setBookNum(4);
+
+        Cart cart2 = new Cart();
+        cart2.setId(1);
+        cart2.setUserId(2);
+        cart2.setBookId(3);
         cart2.setBookNum(8);
 
         assertNotEquals(cart1, cart2);

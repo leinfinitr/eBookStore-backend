@@ -75,6 +75,22 @@ class OrderitemTest {
     }
 
     @Test
+    void equalsReturnsTrueForOneOrderitem() {
+        Orderitem orderitem = new Orderitem();
+        orderitem.setId(1);
+        orderitem.setOrderId(2);
+        orderitem.setName("Test Name");
+        orderitem.setPrice(BigDecimal.valueOf(10.99));
+        orderitem.setImage("Test Image");
+        orderitem.setNum(4);
+        orderitem.setPay(BigDecimal.valueOf(20.99));
+        orderitem.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem.setStatus("Test Status");
+
+        assertEquals(orderitem, orderitem);
+    }
+
+    @Test
     void equalsReturnsTrueForSameOrderitem() {
         Orderitem orderitem1 = new Orderitem();
         orderitem1.setId(1);
@@ -102,7 +118,39 @@ class OrderitemTest {
     }
 
     @Test
-    void equalsReturnsFalseForDifferentOrderitems() {
+    void equalsReturnsFalseForNull() {
+        Orderitem orderitem = new Orderitem();
+        orderitem.setId(1);
+        orderitem.setOrderId(2);
+        orderitem.setName("Test Name");
+        orderitem.setPrice(BigDecimal.valueOf(10.99));
+        orderitem.setImage("Test Image");
+        orderitem.setNum(4);
+        orderitem.setPay(BigDecimal.valueOf(20.99));
+        orderitem.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem.setStatus("Test Status");
+
+        assertNotEquals(orderitem, null);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentObject() {
+        Orderitem orderitem = new Orderitem();
+        orderitem.setId(1);
+        orderitem.setOrderId(2);
+        orderitem.setName("Test Name");
+        orderitem.setPrice(BigDecimal.valueOf(10.99));
+        orderitem.setImage("Test Image");
+        orderitem.setNum(4);
+        orderitem.setPay(BigDecimal.valueOf(20.99));
+        orderitem.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem.setStatus("Test Status");
+
+        assertNotEquals(orderitem, new Object());
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentOId() {
         Orderitem orderitem1 = new Orderitem();
         orderitem1.setId(1);
         orderitem1.setOrderId(2);
@@ -122,6 +170,222 @@ class OrderitemTest {
         orderitem2.setImage("Different Test Image");
         orderitem2.setNum(5);
         orderitem2.setPay(BigDecimal.valueOf(40.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem2.setStatus("Different Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentOrderId() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(3);
+        orderitem2.setName("Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(10.99));
+        orderitem2.setImage("Test Image");
+        orderitem2.setNum(4);
+        orderitem2.setPay(BigDecimal.valueOf(20.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem2.setStatus("Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentName() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(2);
+        orderitem2.setName("Different Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(10.99));
+        orderitem2.setImage("Test Image");
+        orderitem2.setNum(4);
+        orderitem2.setPay(BigDecimal.valueOf(20.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem2.setStatus("Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentPrice() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(2);
+        orderitem2.setName("Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(30.99));
+        orderitem2.setImage("Test Image");
+        orderitem2.setNum(4);
+        orderitem2.setPay(BigDecimal.valueOf(20.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem2.setStatus("Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentImage() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(2);
+        orderitem2.setName("Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(10.99));
+        orderitem2.setImage("Different Test Image");
+        orderitem2.setNum(4);
+        orderitem2.setPay(BigDecimal.valueOf(20.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem2.setStatus("Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentNum() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(2);
+        orderitem2.setName("Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(10.99));
+        orderitem2.setImage("Test Image");
+        orderitem2.setNum(5);
+        orderitem2.setPay(BigDecimal.valueOf(20.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem2.setStatus("Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentPay() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(2);
+        orderitem2.setName("Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(10.99));
+        orderitem2.setImage("Test Image");
+        orderitem2.setNum(4);
+        orderitem2.setPay(BigDecimal.valueOf(30.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem2.setStatus("Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentTime() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(2);
+        orderitem2.setName("Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(10.99));
+        orderitem2.setImage("Test Image");
+        orderitem2.setNum(4);
+        orderitem2.setPay(BigDecimal.valueOf(20.99));
+        orderitem2.setTime(new Timestamp(System.currentTimeMillis() + 1000));
+        orderitem2.setStatus("Test Status");
+
+        assertNotEquals(orderitem1, orderitem2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentStatus() {
+        Orderitem orderitem1 = new Orderitem();
+        orderitem1.setId(1);
+        orderitem1.setOrderId(2);
+        orderitem1.setName("Test Name");
+        orderitem1.setPrice(BigDecimal.valueOf(10.99));
+        orderitem1.setImage("Test Image");
+        orderitem1.setNum(4);
+        orderitem1.setPay(BigDecimal.valueOf(20.99));
+        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
+        orderitem1.setStatus("Test Status");
+
+        Orderitem orderitem2 = new Orderitem();
+        orderitem2.setId(1);
+        orderitem2.setOrderId(2);
+        orderitem2.setName("Test Name");
+        orderitem2.setPrice(BigDecimal.valueOf(10.99));
+        orderitem2.setImage("Test Image");
+        orderitem2.setNum(4);
+        orderitem2.setPay(BigDecimal.valueOf(20.99));
         orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
         orderitem2.setStatus("Different Test Status");
 
@@ -159,25 +423,9 @@ class OrderitemTest {
     void hashCodeReturnsDifferentHashCodeForDifferentOrderitems() {
         Orderitem orderitem1 = new Orderitem();
         orderitem1.setId(1);
-        orderitem1.setOrderId(2);
-        orderitem1.setName("Test Name");
-        orderitem1.setPrice(BigDecimal.valueOf(10.99));
-        orderitem1.setImage("Test Image");
-        orderitem1.setNum(4);
-        orderitem1.setPay(BigDecimal.valueOf(20.99));
-        orderitem1.setTime(new Timestamp(System.currentTimeMillis()));
-        orderitem1.setStatus("Test Status");
 
         Orderitem orderitem2 = new Orderitem();
         orderitem2.setId(3);
-        orderitem2.setOrderId(4);
-        orderitem2.setName("Different Test Name");
-        orderitem2.setPrice(BigDecimal.valueOf(30.99));
-        orderitem2.setImage("Different Test Image");
-        orderitem2.setNum(5);
-        orderitem2.setPay(BigDecimal.valueOf(40.99));
-        orderitem2.setTime(new Timestamp(System.currentTimeMillis()));
-        orderitem2.setStatus("Different Test Status");
 
         assertNotEquals(orderitem1.hashCode(), orderitem2.hashCode());
     }

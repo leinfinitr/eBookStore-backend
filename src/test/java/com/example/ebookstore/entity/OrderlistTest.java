@@ -67,6 +67,51 @@ class OrderlistTest {
     }
 
     @Test
+    void equalsReturnsTrueForOneOrderlist() {
+        Orderlist orderlist = new Orderlist();
+        orderlist.setOrderId(1);
+        orderlist.setUserName("Test User");
+        orderlist.setPhone("1234567890");
+        orderlist.setNation("Test Nation");
+        orderlist.setProvince("Test Province");
+        orderlist.setAddress("Test Address");
+        orderlist.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertEquals(orderlist, orderlist);
+    }
+
+    @Test
+    void equalsReturnsFalseForNull() {
+        Orderlist orderlist = new Orderlist();
+        orderlist.setOrderId(1);
+        orderlist.setUserName("Test User");
+        orderlist.setPhone("1234567890");
+        orderlist.setNation("Test Nation");
+        orderlist.setProvince("Test Province");
+        orderlist.setAddress("Test Address");
+        orderlist.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist, null);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentObject() {
+        Orderlist orderlist = new Orderlist();
+        orderlist.setOrderId(1);
+        orderlist.setUserName("Test User");
+        orderlist.setPhone("1234567890");
+        orderlist.setNation("Test Nation");
+        orderlist.setProvince("Test Province");
+        orderlist.setAddress("Test Address");
+        orderlist.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist, new Object());
+    }
+
+    @Test
     void equalsReturnsTrueForSameOrderlist() {
         Orderlist orderlist1 = new Orderlist();
         orderlist1.setOrderId(1);
@@ -92,7 +137,7 @@ class OrderlistTest {
     }
 
     @Test
-    void equalsReturnsFalseForDifferentOrderlists() {
+    void equalsReturnsFalseForDifferentOrderId() {
         Orderlist orderlist1 = new Orderlist();
         orderlist1.setOrderId(1);
         orderlist1.setUserName("Test User");
@@ -112,6 +157,181 @@ class OrderlistTest {
         orderlist2.setAddress("Different Test Address");
         orderlist2.setTotalPrice(BigDecimal.valueOf(20.99));
         orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist1, orderlist2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentUserName() {
+        Orderlist orderlist1 = new Orderlist();
+        orderlist1.setOrderId(1);
+        orderlist1.setUserName("Test User");
+        orderlist1.setPhone("1234567890");
+        orderlist1.setNation("Test Nation");
+        orderlist1.setProvince("Test Province");
+        orderlist1.setAddress("Test Address");
+        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
+
+        Orderlist orderlist2 = new Orderlist();
+        orderlist2.setOrderId(1);
+        orderlist2.setUserName("Different Test User");
+        orderlist2.setPhone("1234567890");
+        orderlist2.setNation("Test Nation");
+        orderlist2.setProvince("Test Province");
+        orderlist2.setAddress("Test Address");
+        orderlist2.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist1, orderlist2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentPhone() {
+        Orderlist orderlist1 = new Orderlist();
+        orderlist1.setOrderId(1);
+        orderlist1.setUserName("Test User");
+        orderlist1.setPhone("1234567890");
+        orderlist1.setNation("Test Nation");
+        orderlist1.setProvince("Test Province");
+        orderlist1.setAddress("Test Address");
+        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
+
+        Orderlist orderlist2 = new Orderlist();
+        orderlist2.setOrderId(1);
+        orderlist2.setUserName("Test User");
+        orderlist2.setPhone("0987654321");
+        orderlist2.setNation("Test Nation");
+        orderlist2.setProvince("Test Province");
+        orderlist2.setAddress("Test Address");
+        orderlist2.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist1, orderlist2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentNation() {
+        Orderlist orderlist1 = new Orderlist();
+        orderlist1.setOrderId(1);
+        orderlist1.setUserName("Test User");
+        orderlist1.setPhone("1234567890");
+        orderlist1.setNation("Test Nation");
+        orderlist1.setProvince("Test Province");
+        orderlist1.setAddress("Test Address");
+        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
+
+        Orderlist orderlist2 = new Orderlist();
+        orderlist2.setOrderId(1);
+        orderlist2.setUserName("Test User");
+        orderlist2.setPhone("1234567890");
+        orderlist2.setNation("Different Test Nation");
+        orderlist2.setProvince("Test Province");
+        orderlist2.setAddress("Test Address");
+        orderlist2.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist1, orderlist2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentProvince() {
+        Orderlist orderlist1 = new Orderlist();
+        orderlist1.setOrderId(1);
+        orderlist1.setUserName("Test User");
+        orderlist1.setPhone("1234567890");
+        orderlist1.setNation("Test Nation");
+        orderlist1.setProvince("Test Province");
+        orderlist1.setAddress("Test Address");
+        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
+
+        Orderlist orderlist2 = new Orderlist();
+        orderlist2.setOrderId(1);
+        orderlist2.setUserName("Test User");
+        orderlist2.setPhone("1234567890");
+        orderlist2.setNation("Test Nation");
+        orderlist2.setProvince("Different Test Province");
+        orderlist2.setAddress("Test Address");
+        orderlist2.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist1, orderlist2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentAddress() {
+        Orderlist orderlist1 = new Orderlist();
+        orderlist1.setOrderId(1);
+        orderlist1.setUserName("Test User");
+        orderlist1.setPhone("1234567890");
+        orderlist1.setNation("Test Nation");
+        orderlist1.setProvince("Test Province");
+        orderlist1.setAddress("Test Address");
+        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
+
+        Orderlist orderlist2 = new Orderlist();
+        orderlist2.setOrderId(1);
+        orderlist2.setUserName("Test User");
+        orderlist2.setPhone("1234567890");
+        orderlist2.setNation("Test Nation");
+        orderlist2.setProvince("Test Province");
+        orderlist2.setAddress("Different Test Address");
+        orderlist2.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist1, orderlist2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentTotalPrice() {
+        Orderlist orderlist1 = new Orderlist();
+        orderlist1.setOrderId(1);
+        orderlist1.setUserName("Test User");
+        orderlist1.setPhone("1234567890");
+        orderlist1.setNation("Test Nation");
+        orderlist1.setProvince("Test Province");
+        orderlist1.setAddress("Test Address");
+        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
+
+        Orderlist orderlist2 = new Orderlist();
+        orderlist2.setOrderId(1);
+        orderlist2.setUserName("Test User");
+        orderlist2.setPhone("1234567890");
+        orderlist2.setNation("Test Nation");
+        orderlist2.setProvince("Test Province");
+        orderlist2.setAddress("Test Address");
+        orderlist2.setTotalPrice(BigDecimal.valueOf(20.99));
+        orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
+
+        assertNotEquals(orderlist1, orderlist2);
+    }
+
+    @Test
+    void equalsReturnsFalseForDifferentTime() {
+        Orderlist orderlist1 = new Orderlist();
+        orderlist1.setOrderId(1);
+        orderlist1.setUserName("Test User");
+        orderlist1.setPhone("1234567890");
+        orderlist1.setNation("Test Nation");
+        orderlist1.setProvince("Test Province");
+        orderlist1.setAddress("Test Address");
+        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
+
+        Orderlist orderlist2 = new Orderlist();
+        orderlist2.setOrderId(1);
+        orderlist2.setUserName("Test User");
+        orderlist2.setPhone("1234567890");
+        orderlist2.setNation("Test Nation");
+        orderlist2.setProvince("Test Province");
+        orderlist2.setAddress("Test Address");
+        orderlist2.setTotalPrice(BigDecimal.valueOf(10.99));
+        orderlist2.setTime(new Timestamp(System.currentTimeMillis() + 1000));
 
         assertNotEquals(orderlist1, orderlist2);
     }
@@ -145,23 +365,9 @@ class OrderlistTest {
     void hashCodeReturnsDifferentHashCodeForDifferentOrderlists() {
         Orderlist orderlist1 = new Orderlist();
         orderlist1.setOrderId(1);
-        orderlist1.setUserName("Test User");
-        orderlist1.setPhone("1234567890");
-        orderlist1.setNation("Test Nation");
-        orderlist1.setProvince("Test Province");
-        orderlist1.setAddress("Test Address");
-        orderlist1.setTotalPrice(BigDecimal.valueOf(10.99));
-        orderlist1.setTime(new Timestamp(System.currentTimeMillis()));
 
         Orderlist orderlist2 = new Orderlist();
         orderlist2.setOrderId(2);
-        orderlist2.setUserName("Different Test User");
-        orderlist2.setPhone("0987654321");
-        orderlist2.setNation("Different Test Nation");
-        orderlist2.setProvince("Different Test Province");
-        orderlist2.setAddress("Different Test Address");
-        orderlist2.setTotalPrice(BigDecimal.valueOf(20.99));
-        orderlist2.setTime(new Timestamp(System.currentTimeMillis()));
 
         assertNotEquals(orderlist1.hashCode(), orderlist2.hashCode());
     }
