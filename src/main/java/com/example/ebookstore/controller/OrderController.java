@@ -83,26 +83,29 @@ public class OrderController {
         return result;
     }
 
-    @GetMapping("/buyById")
-    public Map<String, String> buyById(@RequestParam(value = "cartId") Integer cartId) {
+    @PostMapping("/buyById")
+    public Map<String, String> buyById(@RequestBody Map<String, Object> id) {
+        Integer cartId = (Integer) id.get("cartId");
+        Integer userId = (Integer) id.get("userId");
         List<Book> bookData = bookservice.findAll();
-        List<Cart> cartData = cartService.findCartsByUserId(cartId);
+        List<Cart> cartData = cartService.findCartsByUserId(userId);
         if (cartData.isEmpty()) {
             Map<String, String> result = new HashMap<>();
             result.put("status", "Cart is empty");
             return result;
         }
-        int userId = cartData.get(0).getUserId();
         double pay;        // 每个订单项购买的总价
         double totalPay = 0.0;   // 订单的总价
         List<Orderitem> orderList = new ArrayList<>(); // 订单中的书籍列表
         List<Integer> bookIdList = new ArrayList<>();  // 书籍 id 列表
-        // 如果 id 为 0，表示购买全部书籍
+        // 如果 cartId 为 0，表示购买全部书籍
         if (cartId == 0) {
             for (Cart cartBuy : cartData) {
+                boolean bookFound = false;
                 // 在 bookData 中查找书籍信息
                 for (Book book : bookData) {
                     if (book.getId() == cartBuy.getBookId()) {
+                        bookFound = true;
                         // 如果书籍库存量不足，则购买失败并提示
                         if (cartBuy.getBookNum() > book.getInventory()) {
                             Map<String, String> result = new HashMap<>();
@@ -124,9 +127,10 @@ public class OrderController {
                         break;
                     }
                 }
-                if (orderList.isEmpty()) {
+                if (!bookFound) {
                     Map<String, String> result = new HashMap<>();
                     result.put("status", "Book not found");
+                    result.put("bookId", String.valueOf(cartBuy.getBookId()));
                     return result;
                 }
             }
