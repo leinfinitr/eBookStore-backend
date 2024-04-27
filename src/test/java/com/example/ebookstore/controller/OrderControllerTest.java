@@ -1,8 +1,10 @@
 package com.example.ebookstore.controller;
 
-import com.example.ebookstore.entity.Orderitem;
-import com.example.ebookstore.entity.Orderlist;
+import com.example.ebookstore.entity.*;
+import com.example.ebookstore.service.BookService;
+import com.example.ebookstore.service.CartService;
 import com.example.ebookstore.service.OrderService;
+import com.example.ebookstore.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,14 +18,22 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 class OrderControllerTest {
     @Mock
     OrderService orderService;
+
+    @Mock
+    BookService bookservice;
+
+    @Mock
+    CartService cartService;
+
+    @Mock
+    UserService userService;
 
     @InjectMocks
     OrderController orderController;
@@ -195,5 +205,96 @@ class OrderControllerTest {
         Map<String, Object> actualResult = orderController.buy(order);
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void buyByIdReturnsSuccess() {
+        Integer cartId = 1;
+        List<Book> bookData = new ArrayList<>();
+        Book book = new Book();
+        book.setId(1);
+        book.setIsbn("testIsbn");
+        book.setName("testBook");
+        book.setType("testType");
+        book.setAuthor("testAuthor");
+        book.setPrice(BigDecimal.valueOf(100.0));
+        book.setDescription("testDescription");
+        book.setInventory(10);
+        book.setImage("testImage");
+        bookData.add(book);
+
+        List<Cart> cartData = new ArrayList<>();
+        Cart cart = new Cart();
+        cart.setId(1);
+        cart.setUserId(1);
+        cart.setBookId(1);
+        cart.setBookNum(1);
+        cartData.add(cart);
+
+        when(bookservice.findAll()).thenReturn(bookData);
+        when(cartService.findCartsByUserId(cartId)).thenReturn(cartData);
+        when(userService.findByUserId(anyInt())).thenReturn(new User());
+        when(orderService.addOrderlistByUnamePrice(anyString(), anyDouble())).thenReturn(1);
+
+        Map<String, String> result = orderController.buyById(cartId);
+
+        assertEquals("200", result.get("status"));
+    }
+
+    @Test
+    void buyByIdWhenCartIsEmpty() {
+        Integer cartId = 1;
+        List<Book> bookData = new ArrayList<>();
+        List<Cart> cartData = new ArrayList<>();
+
+        when(bookservice.findAll()).thenReturn(bookData);
+        when(cartService.findCartsByUserId(cartId)).thenReturn(cartData);
+
+        Map<String, String> result = orderController.buyById(cartId);
+
+        assertEquals("Cart is empty", result.get("status"));
+    }
+
+    @Test
+    void buyByIdWhenBookIsNotInStock() {
+        Integer cartId = 1;
+        List<Book> bookData = new ArrayList<>();
+        Book book = new Book();
+        book.setId(1);
+        book.setInventory(0);
+        bookData.add(book);
+
+        List<Cart> cartData = new ArrayList<>();
+        Cart cart = new Cart();
+        cart.setUserId(1);
+        cart.setBookId(1);
+        cart.setBookNum(1);
+        cartData.add(cart);
+
+        when(bookservice.findAll()).thenReturn(bookData);
+        when(cartService.findCartsByUserId(cartId)).thenReturn(cartData);
+
+        Map<String, String> result = orderController.buyById(cartId);
+
+        assertEquals(book.getName() + "库存不足", result.get("status"));
+    }
+
+    @Test
+    void buyByIdWhenBookIsNotFound() {
+        Integer cartId = 1;
+        List<Book> bookData = new ArrayList<>();
+        List<Cart> cartData = new ArrayList<>();
+        Cart cart = new Cart();
+        cart.setUserId(1);
+        cart.setBookId(1);
+        cart.setBookNum(1);
+        cartData.add(cart);
+
+        when(bookservice.findAll()).thenReturn(bookData);
+        when(cartService.findCartsByUserId(cartId)).thenReturn(cartData);
+
+        Map<String, String> result = orderController.buyById(cartId);
+
+        assertEquals("Book not found", result.get("status"));
     }
 }
